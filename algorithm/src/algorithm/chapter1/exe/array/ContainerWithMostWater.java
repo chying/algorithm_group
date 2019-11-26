@@ -11,6 +11,12 @@ package algorithm.chapter1.exe.array;
  *
  */
 public class ContainerWithMostWater {
+	/**
+	 * 双指针法
+	 * 
+	 * @param a
+	 * @return
+	 */
 	public int maxArea(int[] a) {
 		return 0;
 	}
