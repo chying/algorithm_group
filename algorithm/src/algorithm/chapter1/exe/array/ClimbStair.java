@@ -10,12 +10,73 @@ package algorithm.chapter1.exe.array;
  *
  */
 public class ClimbStair {
+	/**
+	 * 记忆化递归
+	 * 
+	 * @param n
+	 * @return
+	 */
 	public int climbStairs(int n) {
-		return 0;
+		int memo[] = new int[n + 1];
+		return climb_Stairs(0, n, memo);
+	}
+
+	public int climb_Stairs(int i, int n, int memo[]) {
+		if (i > n) {
+			return 0;
+		}
+		if (i == n) {
+			return 1;
+		}
+		if (memo[i] > 0) {
+			return memo[i];
+		}
+		memo[i] = climb_Stairs(i + 1, n, memo) + climb_Stairs(i + 2, n, memo);
+		return memo[i];
 	}
 
 	public static void main(String[] args) {
 		ClimbStair a = new ClimbStair();
-		System.out.println(a.climbStairs(5));
+		System.out.println(a.climbStairs_FB(5));
+	}
+
+	/**
+	 * dp方程 dp[n] = dp[n - 1] + dp[n - 2];
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public int climbStairs_DP(int n) {
+		if (n > 0) {
+			if (n == 1 || n == 2) {
+				return n;
+			}
+			int[] dp = new int[n + 1];
+			dp[1] = 1;
+			dp[2] = 2;
+			for (int i = 3; i <= n; i++) {
+				dp[i] = dp[i - 1] + dp[i - 2];
+			}
+			return dp[n];
+		}
+		return 0;
+	}
+
+	public int climbStairs_FB(int n) {
+		if (n > 0) {
+			if (n == 1 || n == 2) {
+				return n;
+			}
+			int first = 1;
+			int second = 2;
+			int third = 0;
+			for (int i = 3; i <= n; i++) {
+				third = first + second;
+				first = second;
+				second = third;
+			}
+			return third;
+		}
+		return 0;
 	}
 }
