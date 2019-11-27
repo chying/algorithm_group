@@ -18,7 +18,16 @@ public class ContainerWithMostWater {
 	 * @return
 	 */
 	public int maxArea(int[] a) {
-		return 0;
+		int maxArea = 0;
+		if (null != a) {
+			int area = 0;
+			for (int i = 0, j = a.length - 1; i < j;) {
+				int h = a[i] > a[j] ? a[j--] : a[i++];
+				area = (j - i + 1) * h;
+				maxArea = Math.max(maxArea, area);
+			}
+		}
+		return maxArea;
 	}
 
 	public static void main(String[] args) {
