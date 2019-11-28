@@ -1,5 +1,7 @@
 package algorithm.chapter1.exe.array;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,12 +15,52 @@ import java.util.List;
  */
 public class ThreeNums {
 	public List<List<Integer>> threeSum(int[] nums) {
-		return null;
+		List<List<Integer>> result = new ArrayList<>();
+		if (nums != null) {
+			Arrays.sort(nums);
+			int i = 0;
+			int k = nums.length - 1;
+			while (nums[i] <= 0 && i < k - 2) {
+				int j = i + 1;
+				while (nums[j] == nums[i]) {
+					j++;
+				}
+				while (nums[k] >= 0 && j < k) {
+					int target = -(nums[i] + nums[j]);
+					if (target > nums[k]) {
+						j++;
+						while (nums[j - 1] == nums[j]) {
+							j++;
+						}
+
+					} else if (target < nums[k]) {
+						k--;
+						while (nums[k + 1] == nums[k]) {
+							k--;
+						}
+
+					}
+					if (target == nums[k]) {
+						List<Integer> subList = new ArrayList<>();
+						subList.add(nums[i]);
+						subList.add(nums[j]);
+						subList.add(nums[k]);
+						result.add(subList);
+					}
+				}
+				i++;
+			}
+
+		}
+		return result;
 	}
 
 	public static void main(String[] args) {
 		int[] nums = new int[] { -1, 0, 1, 2, -1, -4 };
 		ThreeNums a = new ThreeNums();
-		a.threeSum(nums);
+		List<List<Integer>> result = a.threeSum(nums);
+		for (int i = 0; i < result.size(); i++) {
+			System.out.println(result.get(i).toString());
+		}
 	}
 }

@@ -19,12 +19,12 @@ public class ThreeNums {
 		int len = nums.length;
 		if (nums == null || len < 3)
 			return ans;
-		Arrays.sort(nums); // 鎺掑簭
+		Arrays.sort(nums);
 		for (int i = 0; i < len; i++) {
 			if (nums[i] > 0)
-				break; // 濡傛灉褰撳墠鏁板瓧澶т簬0锛屽垯涓夋暟涔嬪拰涓�瀹氬ぇ浜�0锛屾墍浠ョ粨鏉熷惊鐜�
+				break;
 			if (i > 0 && nums[i] == nums[i - 1])
-				continue; // 鍘婚噸
+				continue;
 			int L = i + 1;
 			int R = len - 1;
 			while (L < R) {
@@ -32,9 +32,9 @@ public class ThreeNums {
 				if (sum == 0) {
 					ans.add(Arrays.asList(nums[i], nums[L], nums[R]));
 					while (L < R && nums[L] == nums[L + 1])
-						L++; // 鍘婚噸
+						L++;
 					while (L < R && nums[R] == nums[R - 1])
-						R--; // 鍘婚噸
+						R--;
 					L++;
 					R--;
 				} else if (sum < 0)
