@@ -35,6 +35,7 @@ public class MergeSort {
 		for (int p = 0; p < temp.length; p++) {
 			arr[left + p] = temp[p];
 		}
+//		System.arraycopy(arr, 0, temp, 0, temp.length);
 	}
 
 	public static void main(String[] args) {
