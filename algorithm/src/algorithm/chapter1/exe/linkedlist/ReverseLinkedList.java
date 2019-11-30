@@ -20,6 +20,9 @@ public class ReverseLinkedList {
 	}
 
 	public ListNode reverseList(ListNode head) {
+		if (head != null) {
+			ListNode pre = head;
+		}
 		return null;
 	}
 
