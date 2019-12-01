@@ -1,5 +1,9 @@
 package algorithm.chapter7.first;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * 【146. LRU缓存机制】运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和
  * 写入数据 put 。 获取数据 get(key) - 如果密钥 (key) 存在于缓存中，则获取密钥的值（总是正数），否则返回 -1。 写入数据
@@ -13,20 +17,38 @@ package algorithm.chapter7.first;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。**@author chying
  *
  */
-public class LRUCache {
-	public LRUCache(int capacity) {
+public class LRUCache extends LinkedHashMap<Integer, Integer> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int capacity;
 
+	public LRUCache(int capacity) {
+		super(capacity, 0.75F, true);
+		this.capacity = capacity;
 	}
 
 	public int get(int key) {
-		return 0;
+		return super.getOrDefault(key, -1);
 	}
 
 	public void put(int key, int value) {
-
+		super.put(key, value);
 	}
 
+	@Override
+	protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+		return size() > capacity;
+	}
+
+	/**
+	 * LRUCache 对象会以如下语句构造和调用: LRUCache obj = new LRUCache(capacity); int param_1 =
+	 * obj.get(key); obj.put(key,value);
+	 */
 	public static void main(String[] args) {
 		LRUCache a = new LRUCache(8);
+		HashMap<String, String> map = new HashMap<>();
+		map.put("1", "a");
 	}
 }
