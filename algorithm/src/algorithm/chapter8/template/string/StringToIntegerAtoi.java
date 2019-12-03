@@ -15,6 +15,12 @@ package algorithm.chapter8.template.string;
  */
 public class StringToIntegerAtoi {
 	public int myAtoi(String str) {
+		if (null != str) {
+			str = str.trim();
+			if (str.startsWith("+") || str.startsWith("-")) {
+				
+			}
+		}
 		return 0;
 	}
 
