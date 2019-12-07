@@ -1,6 +1,4 @@
-package algorithm.chapter5.template;
-
-
+package algorithm.chapter5.first;
 
 /**
  * 【322. 零钱兑换】给定不同面额的硬币 coins 和一个总金额
@@ -15,7 +13,7 @@ package algorithm.chapter5.template;
 public class CoinChange {
 	public int coinChange(int[] coins, int amount) {
 		if (null != coins) {
-
+			int[] dp = new int[coins.length];
 		}
 		return 0;
 	}
