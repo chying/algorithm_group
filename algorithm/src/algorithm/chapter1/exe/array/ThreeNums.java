@@ -16,39 +16,34 @@ import java.util.List;
 public class ThreeNums {
 	public List<List<Integer>> threeSum(int[] nums) {
 		List<List<Integer>> result = new ArrayList<>();
-		if (nums != null) {
+		if (nums != null && nums.length > 0) {
 			Arrays.sort(nums);
-			int i = 0;
-			int k = nums.length - 1;
-			while (nums[i] <= 0 && i < k - 2) {
-				int j = i + 1;
-				while (nums[j] == nums[i]) {
-					j++;
-				}
-				while (nums[k] >= 0 && j < k) {
-					int target = -(nums[i] + nums[j]);
-					if (target > nums[k]) {
-						j++;
-						while (nums[j - 1] == nums[j]) {
-							j++;
+			for (int i = 0; i < nums.length - 2; i++) {
+				if (i == 0 || nums[i] != nums[i - 1]) {
+					int lo = i + 1;
+					int hi = nums.length - 1;
+					int sum = 0 - nums[i];
+					while (lo < hi) {
+						if (sum == nums[lo] + nums[hi]) {
+							result.add(Arrays.asList(nums[i], nums[lo], nums[hi]));
+							while (lo < hi && nums[lo] == nums[lo + 1]) {
+								lo++;
+							}
+							while (lo < hi && nums[hi] == nums[hi - 1]) {
+								hi--;
+							}
+							lo++;
+							hi--;
+						} else {
+							if (sum > nums[lo] + nums[hi]) {
+								lo++;
+							} else {
+								hi--;
+							}
 						}
-
-					} else if (target < nums[k]) {
-						k--;
-						while (nums[k + 1] == nums[k]) {
-							k--;
-						}
-
 					}
-					if (target == nums[k]) {
-						List<Integer> subList = new ArrayList<>();
-						subList.add(nums[i]);
-						subList.add(nums[j]);
-						subList.add(nums[k]);
-						result.add(subList);
-					}
+
 				}
-				i++;
 			}
 
 		}

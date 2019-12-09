@@ -12,7 +12,7 @@ import java.util.Set;
  * @author chying
  *
  */
-public class FirstUniqueCharacterInAstring {
+public class LeetCode_387_519 {
 
 	public int firstUniqChar(String s) {
 		if (s == null || s.length() == 0)
@@ -99,27 +99,8 @@ public class FirstUniqueCharacterInAstring {
 	}
 
 	public static void main(String[] args) {
-		FirstUniqueCharacterInAstring a = new FirstUniqueCharacterInAstring();
+		LeetCode_387_519 a = new LeetCode_387_519();
 		String s = "lleetcode";
-		System.out.println(a.firstUniqChar_s(s));
-	}
-
-	public int firstUniqChar_s(String s) {
-		if (null != s && s.length() > 0) {
-			int j = 0;
-			char[] arr = s.toCharArray();
-			int[] count = new int[26];
-			for (int i = 0; i < arr.length; i++) {
-				count[arr[i] - 'a']++;
-				while (count[arr[j] - 'a'] > 1 && j < arr.length) {
-					j++;
-				}
-				if (j == arr.length) {
-					return -1;
-				}
-			}
-			return j;
-		}
-		return -1;
+		System.out.println(a.firstUniqChar(s));
 	}
 }

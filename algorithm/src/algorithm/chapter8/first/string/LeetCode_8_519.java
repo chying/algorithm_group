@@ -13,7 +13,7 @@ package algorithm.chapter8.first.string;
  * @author chying
  *
  */
-public class StringToIntegerAtoi {
+public class LeetCode_8_519 {
 	public int myAtoi(String str) {
 		int result = 0;
 		int flag = 1;
@@ -57,7 +57,7 @@ public class StringToIntegerAtoi {
 	}
 
 	public static void main(String[] args) {
-		StringToIntegerAtoi a = new StringToIntegerAtoi();
+		LeetCode_8_519 a = new LeetCode_8_519();
 		String str = "-2147483649";
 		System.out.println(a.myAtoi(str));
 	}
