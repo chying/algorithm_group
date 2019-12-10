@@ -20,7 +20,17 @@ public class SwapNodesInPairs {
 	}
 
 	public ListNode swapPairs(ListNode head) {
-		return null;
+		ListNode p = head;
+		head = head.next;
+		while (p != null && p.next != null) {
+			ListNode q = p.next;
+			ListNode tempNode = q.next;
+			q.next = p;
+			p.next = tempNode;
+
+			p = tempNode;
+		}
+		return head;
 	}
 
 	public static void main(String[] args) {
@@ -29,9 +39,13 @@ public class SwapNodesInPairs {
 		ListNode node2 = new SwapNodesInPairs().new ListNode(2);
 		ListNode node3 = new SwapNodesInPairs().new ListNode(3);
 		ListNode node4 = new SwapNodesInPairs().new ListNode(4);
+		ListNode node5 = new SwapNodesInPairs().new ListNode(5);
+		ListNode node6 = new SwapNodesInPairs().new ListNode(6);
 		node1.next = node2;
 		node2.next = node3;
 		node3.next = node4;
+		node4.next = node5;
+		node5.next = node6;
 		ListNode node = a.swapPairs(node1);
 		while (node != null) {
 			System.out.println(node.val);
