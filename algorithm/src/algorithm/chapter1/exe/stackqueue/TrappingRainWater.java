@@ -47,7 +47,7 @@ public class TrappingRainWater {
 	public static void main(String[] args) {
 		TrappingRainWater a = new TrappingRainWater();
 		int[] height = new int[] { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 };
-		System.out.println(a.trap1(height));
+		System.out.println(a.trap2(height));
 	}
 
 	/**
@@ -69,6 +69,27 @@ public class TrappingRainWater {
 					int distance = i - deque.getFirst() - 1;
 					int min = Math.min(height[deque.getFirst()], height[i]);
 					sum = sum + distance * (min - h);
+				}
+				deque.addFirst(i);
+			}
+
+		}
+		return sum;
+	}
+
+	public int trap2(int[] height) {
+		int sum = 0;
+		if (null != height && height.length > 0) {
+			Deque<Integer> deque = new ArrayDeque<>();
+			for (int i = 0; i < height.length; i++) {
+				while (!deque.isEmpty() && height[i] > height[deque.getFirst()]) {
+					int h = height[deque.pollFirst()];
+					if (deque.isEmpty()) {
+						break;
+					}
+					int distance = i - deque.getFirst() - 1;
+					int min = Math.min(height[i], height[deque.getFirst()]);
+					sum += distance * (min - h);
 				}
 				deque.addFirst(i);
 			}
