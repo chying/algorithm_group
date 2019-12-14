@@ -18,7 +18,13 @@ public class MinimumDepthOfBinaryTree {
 	}
 
 	public int minDepth(TreeNode root) {
-		return 0;
+		if (root == null) {
+			return 0;
+		} else {
+			int left_height = minDepth(root.left);
+			int right_height = minDepth(root.right);
+			return Math.min(left_height, right_height) + 1;
+		}
 	}
 
 	public static void main(String[] args) {
