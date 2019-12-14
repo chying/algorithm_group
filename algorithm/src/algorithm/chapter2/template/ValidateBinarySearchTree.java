@@ -1,7 +1,5 @@
 package algorithm.chapter2.template;
 
-import algorithm.chapter2.exe.bintree.BinaryTreeTraversal.TreeNode;
-
 /**
  * ¡¾98. ÑéÖ¤¶þ²æËÑË÷Ê÷¡¿
  * 
