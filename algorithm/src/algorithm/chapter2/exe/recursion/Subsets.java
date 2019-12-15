@@ -1,4 +1,4 @@
-package algorithm.chapter2.second;
+package algorithm.chapter2.exe.recursion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,27 +11,28 @@ import java.util.List;
  * @author chying
  *
  */
-public class LeetCode_78_519 {
-	public List<List<Integer>> subsets1(int[] nums) {
+public class Subsets {
+	public List<List<Integer>> subsets(int[] nums) {
 		List<List<Integer>> result = new ArrayList<>();
-		result.add(new ArrayList<>());
-		for (int num : nums) {
-			int len = result.size();
-			for (int i = 0; i < len; i++) {
-				List<Integer> subset = new ArrayList<>(result.get(i));
-				subset.add(num);
-				result.add(subset);
-			}
+		if (null != nums && nums.length > 0) {
+			List<Integer> subList = new ArrayList<>();
+			backtrace(nums, subList, result);
 		}
 		return result;
 	}
 
+	private void backtrace(int[] nums, List<Integer> subList, List<List<Integer>> result) {
+		// TODO Auto-generated method stub
+
+	}
+
 	public static void main(String[] args) {
-		LeetCode_78_519 a = new LeetCode_78_519();
+		Subsets a = new Subsets();
 		int[] nums = new int[] { 1, 2, 3 };
-		List<List<Integer>> result = a.subsets1(nums);
-		for (List<Integer> re : result) {
-			System.out.println(re.toString());
+		List<List<Integer>> result = a.subsets(nums);
+		for (List<Integer> list : result) {
+			System.out.println(list.toString());
 		}
+
 	}
 }
