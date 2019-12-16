@@ -32,15 +32,19 @@ public class NAryTreeLevelOrderTraversal {
 		if (null != root) {
 			Deque<Node> deque = new ArrayDeque<>();
 			deque.addFirst(root);
-			while (!deque.isEmpty()) {
-				Node node = deque.pollFirst();
+			while (null != deque && !deque.isEmpty()) {
+				int size = deque.size();
 				List<Integer> subResult = new ArrayList<>();
-				subResult.add(node.val);
-				if (null != node.children) {
-					for (Node child : node.children) {
-						deque.addFirst(child);
+				for (int i = 0; i < size; i++) {
+					Node node = deque.pollLast();
+					subResult.add(node.val);
+					if (null != node.children) {
+						for (Node chileNode : node.children) {
+							deque.addFirst(chileNode);
+						}
 					}
 				}
+				result.add(subResult);
 			}
 		}
 
@@ -55,8 +59,10 @@ public class NAryTreeLevelOrderTraversal {
 		Node node2 = new NAryTreeLevelOrderTraversal().new Node(2, null);
 		Node node4 = new NAryTreeLevelOrderTraversal().new Node(4, null);
 		Node node1 = new NAryTreeLevelOrderTraversal().new Node(1, Arrays.asList(node3, node2, node4));
-
-		System.out.println(a.levelOrder(node1));
+		List<List<Integer>> result = a.levelOrder(node1);
+		for (List<Integer> list : result) {
+			System.out.println(list.toString());
+		}
 
 	}
 }
