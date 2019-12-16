@@ -1,5 +1,11 @@
 package algorithm.chapter3.exe.bfsdfs;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 【433. 最小基因变化】一条基因序列由一个带有8个字符的字符串表示，其中每个字符都属于 "A", "C", "G", "T"中的任意一个。
  * 假设我们要调查一个基因序列的变化。一次基因变化意味着这个基因序列中的一个字符发生了变化。
@@ -15,16 +21,105 @@ package algorithm.chapter3.exe.bfsdfs;
  *
  */
 public class MinimumGeneticMutation {
+	public static char[] geneticChars = new char[] { 'A', 'C', 'G', 'T' };
 
 	public int minMutation(String start, String end, String[] bank) {
+		int count = 0;
+		if (null != bank && bank.length > 0) {
+			Set<String> beginSet = new HashSet<>();
+			beginSet.add(start);
+			Set<String> bankSet = new HashSet<>();
+			for (String bankCode : bank) {
+				bankSet.add(bankCode);
+			}
+			Deque<String> deque = new ArrayDeque<>();
+			deque.add(start);
+			while (!deque.isEmpty()) {
+				int size = deque.size();
+				count++;
+				for (int i = 0; i < size; i++) {
+					String code = deque.pollLast();
+					char[] arr = code.toCharArray();
+					for (int j = 0; j < arr.length; j++) {
+						char old = arr[j];
+						for (char c : geneticChars) {
+							if (old == c) {
+								continue;
+							}
+							arr[j] = c;
+							String newCode = String.valueOf(arr);
+							if (bankSet.contains(newCode)) {
+								if (newCode.equals(end)) {
+									return count;
+								} else {
+									deque.addFirst(newCode);
+								}
+							}
+						}
+						arr[j] = old;
+					}
+				}
+			}
+		}
 		return -1;
 	}
-
+	
+	
 	public static void main(String[] args) {
 		MinimumGeneticMutation a = new MinimumGeneticMutation();
 		String start = "AACCGGTT";
-		String end = "AACCGGTA";
-		String[] bank = new String[] { "AACCGGTA" };
+		String end = "AACCGCTA";
+		String[] bank = new String[] { "AACCGGTA", "AACCGCTA", "AAACGGTA" };
 		System.out.println(a.minMutation(start, end, bank));
+//		"AACCGGTT"
+//		"AACCGGTA"
+//		["AACCGGTA"]
+
+//		"AACCGGTT"
+//		"AACCGCTA"
+//		["AACCGGTA","AACCGCTA","AAACGGTA"]
+	}
+	
+	static char[] value = new char[] { 'A', 'C', 'G', 'T' };
+	public int minMutation1(String start, String end, String[] bank) {
+		if (null != bank && bank.length > 0) {
+			Set<String> bankSet = new HashSet<>(Arrays.asList(bank));
+			if (!bankSet.contains(end)) {
+				return -1;
+			}
+			int count = 0;
+			Deque<String> queue = new ArrayDeque<>();
+			queue.add(start);
+			while (queue.size() > 0) {
+				int size = queue.size();
+				count++;
+				for (int i = 0; i < size; i++) {
+					String curValue = queue.pollFirst();
+					bankSet.remove(curValue);
+					char[] curValueArr = curValue.toCharArray();
+					for (int j = 0; j < curValueArr.length; j++) {
+						char temp = curValueArr[j];
+						for (char ch : value) {
+							if (ch != temp) {
+								curValueArr[j] = ch;
+								String changeValue = String.valueOf(curValueArr);
+								if (!bankSet.contains(changeValue)) {
+									continue;
+								} else {
+									if (changeValue.equals(end)) {
+										return count;
+									} else {
+										queue.addLast(changeValue);
+									}
+								}
+							}
+						}
+						curValueArr[j] = temp;
+					}
+				}
+			}
+		}
+		return -1;
+
 	}
 }
