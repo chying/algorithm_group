@@ -1,4 +1,7 @@
-package algorithm.chapter3.template.greedy;
+package algorithm.chapter3.exe.greedy;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 【860. 柠檬水找零】在柠檬水摊上，每一杯柠檬水的售价为 5 美元。 顾客排队购买你的产品，（按账单 bills 支付的顺序）一次购买一杯。
@@ -13,14 +16,40 @@ package algorithm.chapter3.template.greedy;
  * @author chying
  *
  */
-public class LeetCode_860_519 {
+public class LemonadeChange {
 	public boolean lemonadeChange(int[] bills) {
+		if (null != bills && bills.length > 0) {
+			int count_five = 0;
+			int count_ten = 0;
+			for (int bill : bills) {
+				if (bill == 5) {
+					count_five++;
+				} else if (bill == 10) {
+					if (count_five > 0) {
+						count_ten++;
+						count_five--;
+					} else {
+						return false;
+					}
+				} else if (bill == 20) {
+					if (count_ten > 0 && count_five > 0) {
+						count_ten--;
+						count_five--;
+					} else if (count_five >= 3) {
+						count_five = count_five - 3;
+					} else {
+						return false;
+					}
+				}
+			}
+			return true;
+		}
 		return false;
 	}
-	
+
 	public static void main(String[] args) {
-		LeetCode_860_519 a = new LeetCode_860_519();
-		int[] bills = new int[] { 10, 10 };
+		LemonadeChange a = new LemonadeChange();
+		int[] bills = new int[] { 5, 5, 5, 10, 20 };
 
 		System.out.println(a.lemonadeChange(bills));
 	}
