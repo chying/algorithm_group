@@ -35,7 +35,6 @@ public class Permutations {
 			backtrace(result, sublist, nums);
 			sublist.remove(sublist.size() - 1);
 		}
-
 	}
 
 	public static void main(String[] args) {
