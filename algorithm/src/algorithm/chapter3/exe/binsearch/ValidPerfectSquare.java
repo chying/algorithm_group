@@ -10,13 +10,36 @@ package algorithm.chapter3.exe.binsearch;
  *
  */
 public class ValidPerfectSquare {
+	/**
+	 * 牛顿迭代法
+	 * 
+	 * @param num
+	 * @return
+	 */
 	public boolean isPerfectSquare(int num) {
-		return false;
+//		int r = num;
+//		if (num > 0) {
+//			if (num == 1) {
+//				return true;
+//			}
+//			while (r * r > num) {
+//				r = (r + num / r) / 2;
+//			}
+//		}
+//		return r * r == num;
+		if (num == 1)
+			return true;
+		int cur = num / 2;
+		while (!(cur * cur <= num && (cur + 1) * (cur + 1) > num)) {
+			cur = cur - (cur * cur - num) / (2 * cur);
+		}
+		return cur * cur == num;
+
 	}
 
 	public static void main(String[] args) {
 		ValidPerfectSquare a = new ValidPerfectSquare();
-		int num = 16;
+		int num = 808201;
 		System.out.println(a.isPerfectSquare(num));
 	}
 }
