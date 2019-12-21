@@ -1,5 +1,7 @@
 package algorithm.chapter5.exe;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,10 +17,40 @@ import java.util.List;
  */
 public class Triangle {
 	public int minimumTotal(List<List<Integer>> triangle) {
+		if (null != triangle && triangle.size() > 0) {
+			int m = triangle.size();
+			int n = triangle.get(m - 1).size();
+			int[] dp = new int[n];
+			for (int i = 0; i < n; i++) {
+				dp[i] = triangle.get(m - 1).get(i);
+			}
+
+			for (int i = m - 2; i >= 0; i--) {
+				for (int j = 0; j <= i; j++) {
+					dp[j] = Math.min(dp[j], dp[j + 1]) + triangle.get(i).get(j);
+				}
+			}
+
+			return dp[0];
+		}
 		return 0;
 	}
 
 	public static void main(String[] args) {
+		Triangle a = new Triangle();
+		int[][] arr = new int[][] { { 2 }, { 3, 4 }, { 6, 5, 7 }, { 4, 1, 8, 3 } };
+		List<List<Integer>> triangle = new ArrayList<>();
+		List<Integer> list = new ArrayList<>(Arrays.asList(arr[0][0]));
+		List<Integer> list1 = new ArrayList<>(Arrays.asList(arr[1][0], arr[1][1]));
+		List<Integer> list2 = new ArrayList<>(Arrays.asList(arr[2][0], arr[2][1], arr[2][2]));
+		List<Integer> list3 = new ArrayList<>(Arrays.asList(arr[3][0], arr[3][1], arr[3][2], arr[3][3]));
+		triangle.add(list);
+		triangle.add(list1);
+		triangle.add(list2);
+		triangle.add(list3);
+
+		System.out.println(a.minimumTotal(triangle));
+
 	}
 
 }

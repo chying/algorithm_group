@@ -1,4 +1,4 @@
-package algorithm.chapter4.template;
+package algorithm.chapter5.exe;
 
 /**
  * 【1143. 最长公共子序列】给定两个字符串 text1 和 text2，返回这两个字符串的最长公共子序列。
@@ -15,7 +15,13 @@ package algorithm.chapter4.template;
  *
  */
 public class LongestCommonSubsequence {
+
 	public int longestCommonSubsequence(String text1, String text2) {
+		return 0;
+
+	}
+
+	public int longestCommonSubsequence11(String text1, String text2) {
 		char[] s1 = text1.toCharArray();
 		char[] s2 = text2.toCharArray();
 		int[][] dp = new int[s1.length + 1][s2.length + 1];
@@ -34,89 +40,11 @@ public class LongestCommonSubsequence {
 		return dp[s1.length][s2.length];
 	}
 
-	/**
-	 * 时间优化一些
-	 * 
-	 * @param text1
-	 * @param text2
-	 * @return
-	 */
-	public int longestCommonSubsequence1(String text1, String text2) {
-		int m = text1.length();
-		int n = text2.length();
-		m++;
-		n++;
-		int[] arr = new int[n];
-		char[] arr1 = ("#" + text1).toCharArray();
-		char[] arr2 = ("#" + text2).toCharArray();
-		int temp;
-		int now;
-		for (int i = 1; i < m; i++) {
-			temp = 0;
-			for (int j = 1; j < n; j++) {
-				now = arr[j];
-				if (arr1[i] == arr2[j]) {
-					arr[j] = temp + 1;
-				} else {
-					arr[j] = Math.max(arr[j - 1], arr[j]);
-				}
-				temp = now;
-			}
-		}
-		return arr[n - 1];
-	}
-
 	public static void main(String[] args) {
 		LongestCommonSubsequence a = new LongestCommonSubsequence();
-		// "bsbininm"
-		// "jmjkbkjkv"
 		String text1 = "bsbininm";
 		String text2 = "jmjkbkjkv";
-		System.out.println(a.longestCommonSubsequence2(text1, text2));
-	}
-
-	public int longestCommonSubsequence2(String text1, String text2) {
-		int m = text1.length();
-		int n = text2.length();
-		if (m > 0 && n > 0) {
-			int[][] dp = new int[n][m];
-			char[] arr1 = text1.toCharArray();
-			char[] arr2 = text2.toCharArray();
-			boolean flag = false;
-			for (int i = 0; i < m; i++) {
-				if (arr2[0] == arr1[i]) {
-					flag = true;
-				}
-				if (flag == true) {
-					dp[0][i] = 1;
-				} else {
-					dp[0][i] = 0;
-				}
-			}
-			flag = false;
-			for (int i = 0; i < n; i++) {
-				if (arr1[0] == arr2[i]) {
-					flag = true;
-				}
-				if (flag == true) {
-					dp[i][0] = 1;
-				} else {
-					dp[i][0] = 0;
-				}
-			}
-			for (int i = 1; i < n; i++) {
-				for (int j = 1; j < m; j++) {
-					if (arr1[j] == arr2[i]) {
-						dp[i][j] = dp[i - 1][j - 1] + 1;
-					} else {
-						dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
-					}
-				}
-			}
-			return dp[n - 1][m - 1];
-		}
-
-		return 0;
+		System.out.println(a.longestCommonSubsequence(text1, text2));
 	}
 
 	/**
