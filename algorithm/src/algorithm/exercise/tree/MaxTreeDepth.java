@@ -1,4 +1,4 @@
-package algorithm.exercise;
+package algorithm.exercise.tree;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

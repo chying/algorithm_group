@@ -1,4 +1,4 @@
-package algorithm.exercise;
+package algorithm.exercise.arr;
 
 public class SubtractSumInteger {
 	public int subtractProductAndSum(int n) {

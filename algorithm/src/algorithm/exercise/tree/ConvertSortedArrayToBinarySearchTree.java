@@ -1,4 +1,4 @@
-package algorithm.exercise;
+package algorithm.exercise.tree;
 
 /**
  * 【108. 将有序数组转换为二叉搜索树】

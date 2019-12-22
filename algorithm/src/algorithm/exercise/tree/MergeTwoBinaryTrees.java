@@ -1,4 +1,4 @@
-package algorithm.exercise;
+package algorithm.exercise.tree;
 
 /**
  * ¡¾617. ºÏ²¢¶þ²æÊ÷¡¿

@@ -17,34 +17,34 @@ package algorithm.chapter5.exe;
 public class LongestCommonSubsequence {
 
 	public int longestCommonSubsequence(String text1, String text2) {
-		return 0;
 
-	}
-
-	public int longestCommonSubsequence11(String text1, String text2) {
-		char[] s1 = text1.toCharArray();
-		char[] s2 = text2.toCharArray();
-		int[][] dp = new int[s1.length + 1][s2.length + 1];
-
-		for (int i = 1; i < s1.length + 1; i++) {
-			for (int j = 1; j < s2.length + 1; j++) {
-				// 如果末端相同
-				if (s1[i - 1] == s2[j - 1]) {
-					dp[i][j] = dp[i - 1][j - 1] + 1;
+		if (null == text1 || null == text2) {
+			return 0;
+		}
+		char[] ch1 = text1.toCharArray();
+		char[] ch2 = text2.toCharArray();
+		int len1 = text1.length();
+		int len2 = text2.length();
+		int[][] dp = new int[len1 + 1][len2 + 1];
+		dp[0][0] = 0;
+		for (int i = 0; i < text1.length(); i++) {
+			for (int j = 0; j < text2.length(); j++) {
+				if (ch1[i] == ch2[j]) {
+					dp[i + 1][j + 1] = dp[i][j] + 1;
 				} else {
-					// 如果末端不同
-					dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+					dp[i + 1][j + 1] = Math.max(dp[i][j + 1], dp[i + 1][j]);
 				}
 			}
 		}
-		return dp[s1.length][s2.length];
+		return dp[len1][len2];
+
 	}
 
 	public static void main(String[] args) {
 		LongestCommonSubsequence a = new LongestCommonSubsequence();
-		String text1 = "bsbininm";
-		String text2 = "jmjkbkjkv";
-		System.out.println(a.longestCommonSubsequence(text1, text2));
+		String text1 = "pmjghexybyrgzczy";
+		String text2 = "hafcdqbgncrcbihkd";
+		System.out.println(a.longestCommonSubsequence_compress1(text1, text2));
 	}
 
 	/**
@@ -54,18 +54,50 @@ public class LongestCommonSubsequence {
 	 * @param text2
 	 * @return
 	 */
-	public int longestCommonSubsequence3(String text1, String text2) {
-		int n1 = text1.length();
-		int n2 = text2.length();
-		int[][] dp = new int[n1 + 1][n2 + 1];
-		for (int i = 1; i <= n1; i++) {
-			for (int j = 1; j <= n2; j++) {
-				if (text1.charAt(i - 1) == text2.charAt(j - 1))
-					dp[i][j] = dp[i - 1][j - 1] + 1;
-				else
-					dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
+	public int longestCommonSubsequence_compress(String text1, String text2) {
+		int m = text1.length();
+		int n = text2.length();
+		m++;
+		n++;
+		int[] dp = new int[n];
+		char[] arr1 = ("#" + text1).toCharArray();
+		char[] arr2 = ("#" + text2).toCharArray();
+		int temp;
+		int now;
+		for (int i = 1; i < m; i++) {
+			temp = 0;
+			for (int j = 1; j < n; j++) {
+				now = dp[j];
+				if (arr1[i] == arr2[j]) {
+					dp[j] = temp + 1;
+				} else {
+					dp[j] = Math.max(dp[j - 1], dp[j]);
+				}
+				temp = now;
 			}
 		}
-		return dp[n1][n2];
+		return dp[n - 1];
+	}
+
+	public int longestCommonSubsequence_compress1(String text1, String text2) {
+		if (null == text1 || null == text2) {
+			return 0;
+		}
+		char[] arr1 = ("#" + text1).toCharArray();
+		char[] arr2 = ("#" + text2).toCharArray();
+		int m = arr1.length;
+		int n = arr2.length;
+		int[] dp = new int[n];
+		for (int i = 1; i < m; i++) {
+			for (int j = 1; j < n; j++) {
+				if (arr1[i] == arr2[j]) {
+					dp[j] = dp[j - 1] + 1;
+				} else {
+					dp[j] = Math.max(dp[j - 1], dp[j]);
+				}
+			}
+		}
+
+		return dp[n - 1];
 	}
 }

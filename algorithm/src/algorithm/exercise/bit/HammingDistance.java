@@ -1,4 +1,4 @@
-package algorithm.exercise;
+package algorithm.exercise.bit;
 
 /**
  * ¡¾461. ººÃ÷¾àÀë¡¿https://leetcode-cn.com/problems/hamming-distance/
