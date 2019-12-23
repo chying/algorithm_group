@@ -1,4 +1,4 @@
-package algorithm.exercise;
+package algorithm.exercise.arr;
 
 /**
  * ¡¾¡¿
