@@ -1,4 +1,4 @@
-package algorithm.chapter6.exe;
+package algorithm.chapter6.exe.trie;
 
 import java.util.ArrayList;
 import java.util.HashSet;

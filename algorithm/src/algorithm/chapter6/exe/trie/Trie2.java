@@ -1,4 +1,4 @@
-package algorithm.chapter6.exe;
+package algorithm.chapter6.exe.trie;
 
 /**
  * 【208. 实现 Trie (前缀树)】实现一个 Trie (前缀树)，包含 insert, search, 和 startsWith 这三个操作。
