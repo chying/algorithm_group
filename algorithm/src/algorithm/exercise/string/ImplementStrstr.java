@@ -15,7 +15,7 @@ public class ImplementStrstr {
 			for (int i = 0; i < len1; i++) {
 				if (haystack.charAt(i) == needle.charAt(j)) {
 					j++;
-					if (j == len2 - 1)
+					if (j == len2)
 						return i;
 				} else {
 					j = 0;
@@ -30,8 +30,8 @@ public class ImplementStrstr {
 
 	public static void main(String[] args) {
 		ImplementStrstr a = new ImplementStrstr();
-		String haystack = "";
-		String needle = "";
+		String haystack = "hello";
+		String needle = "ll";
 		System.out.println(a.strStr(haystack, needle));
 
 	}
