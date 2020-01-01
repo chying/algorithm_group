@@ -1,4 +1,4 @@
-package algorithm.chapter7.second;
+package algorithm.chapter7.exe;
 
 /**
  * 【52. N皇后】n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
@@ -13,23 +13,8 @@ public class NQueens2 {
 
 	public int totalNQueens(int n) {
 		count = 0;
-		size = (1 << n) - 1;
-		solve(0, 0, 0, 0, n);
+		size = n - 1;
 		return count;
-	}
-
-	private void solve(int row, int column, int ld, int rd, int n) {
-		if (row == n) {
-			count++;
-			return;
-		}
-		// 当前层 能放皇后的位置
-		int pos = size & (~(column | ld | rd));
-		while (pos != 0) {
-			int p = pos & (-pos);
-			pos -= p;
-			solve(row + 1, column | p, (ld | p) << 1, (rd | p) >> 1, n);
-		}
 	}
 
 	public static void main(String[] args) {

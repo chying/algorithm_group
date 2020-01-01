@@ -1,12 +1,14 @@
-package algorithm.chapter7.second;
+package algorithm.exercise.topN;
 
 /**
- * „Äê„Äë
+ * °æ°ø
  * 
  * @author chying
  *
  */
 public class LeetCode_00_518 {
+	
+
 	public static void main(String[] args) {
 		LeetCode_00_518 a = new LeetCode_00_518();
 	}

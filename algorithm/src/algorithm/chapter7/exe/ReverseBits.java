@@ -1,4 +1,4 @@
-package algorithm.chapter7.second;
+package algorithm.chapter7.exe;
 
 /**
  * 【190. 颠倒二进制位】颠倒给定的 32 位无符号整数的二进制位。 示例 1： 输入: 00000010100101000001111010011100
@@ -14,10 +14,18 @@ package algorithm.chapter7.second;
 public class ReverseBits {
 	// you need treat n as an unsigned value
 	public int reverseBits(int n) {
-		return 0;
+		int result = 0;
+		for (int i = 0; i < 32; i++) {
+			int x = n & 1;
+			n = n >> 1;
+			result = result << 1;
+			result += x;
+		}
+		return result;
 	}
 
 	public static void main(String[] args) {
 		ReverseBits a = new ReverseBits();
+		System.out.println(a.reverseBits(4));
 	}
 }

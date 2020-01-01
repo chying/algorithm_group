@@ -26,23 +26,26 @@ public class ConvertSortedArrayToBinarySearchTree {
 	 * @return
 	 */
 	public TreeNode sortedArrayToBST(int[] nums) {
-		if (null != nums && nums.length > 0) {
-			int len = nums.length;
-
-			TreeNode node = new TreeNode(nums[len / 2]);
-			buildTree(node, 0, len - 1);
-			node.left = new TreeNode(nums[len / 4]);
-			node.right = new TreeNode(nums[len / 4]);
-			return node;
-		}
+//		if (null != nums && nums.length > 0) {
+//			int len = nums.length;
+//			TreeNode node = new TreeNode(nums[len / 2]);
+//			node.left = buildTree(nums, 0, len / 2);
+//			node.right = buildTree(nums, len / 2, len);
+//			return node;
+//		}
 		return null;
 	}
 
-	private void buildTree(TreeNode node, int start, int end) {
+	private TreeNode buildTree(int[] nums, int start, int mid, int end) {
 		if (start > end) {
-			return;
+			return null;
 		}
-//		node.left=buildTree(node,);
+		TreeNode node = new TreeNode(nums[(end - start) / 2]);
+		start = 0;
+//		int mid = (end - start) / 2;
+//		node.left = buildTree(nums, start, mid);
+//		node.right = buildTree(nums, len / 2, len);
+		return node;
 
 	}
 
