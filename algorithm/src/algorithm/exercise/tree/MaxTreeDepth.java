@@ -11,18 +11,7 @@ import java.util.Deque;
  */
 public class MaxTreeDepth {
 
-	// Definition for a binary tree node.
-	public class TreeNode {
-		int val;
-		TreeNode left;
-		TreeNode right;
-
-		TreeNode(int x) {
-			val = x;
-		}
-	}
-
-	public int maxDepth(TreeNode root) {
+	public int maxDepth_BFS(TreeNode root) {
 		int depth = 0;
 		if (null != root) {
 			Deque<TreeNode> queue = new ArrayDeque<TreeNode>();
@@ -44,39 +33,27 @@ public class MaxTreeDepth {
 		return depth;
 	}
 
-//	public int getMaxDepth(TreeNode node, int depth) {
-//		if (node == null) {
-//			return depth;
-//		}
-//		if (node.left != null) {
-//			getMaxDepth(node.left, depth + 1);
-//		}
-//		if (node.right != null) {
-//			getMaxDepth(node.left, depth + 1);
-//		}
-//		return depth;
-//	}
-
 	public static void main(String[] args) {
 		MaxTreeDepth a = new MaxTreeDepth();
-		TreeNode node3 = new MaxTreeDepth().new TreeNode(3);
-		TreeNode node9 = new MaxTreeDepth().new TreeNode(9);
-		TreeNode node20 = new MaxTreeDepth().new TreeNode(20);
-		TreeNode node15 = new MaxTreeDepth().new TreeNode(15);
-		TreeNode node7 = new MaxTreeDepth().new TreeNode(7);
+		TreeNode node3 = new TreeNode(3);
+		TreeNode node9 = new TreeNode(9);
+		TreeNode node20 = new TreeNode(20);
+		TreeNode node15 = new TreeNode(15);
+		TreeNode node7 = new TreeNode(7);
 		node3.left = node9;
 		node3.right = node20;
 		node20.left = node15;
 		node20.right = node7;
-		System.out.println(a.maxDepth1(node3));
+		System.out.println(a.maxDepth(node3));
 	}
 
-	public int maxDepth1(TreeNode root) {
-		if (root == null) {
-			return 0;
+	public int maxDepth(TreeNode root) {
+		if (root != null) {
+			int left = maxDepth(root.left);
+			int right = maxDepth(root.right);
+			return (left > right ? left : right) + 1;
 		}
-		int depth = Math.max(maxDepth1(root.left), maxDepth1(root.right)) + 1;
-		return depth;
+		return 0;
 	}
 
 }

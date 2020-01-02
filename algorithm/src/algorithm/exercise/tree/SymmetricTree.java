@@ -18,7 +18,7 @@ public class SymmetricTree {
 	 * @param root
 	 * @return
 	 */
-	public boolean isSymmetric(TreeNode root) {
+	public boolean isSymmetric_1(TreeNode root) {
 		if (root != null) {
 			Deque<TreeNode> deque = new ArrayDeque<>();
 			deque.add(root);
@@ -47,34 +47,59 @@ public class SymmetricTree {
 		SymmetricTree a = new SymmetricTree();
 		TreeNode node1 = new TreeNode(1);
 		TreeNode node2 = new TreeNode(2);
-		TreeNode node3 = new TreeNode(3);
-		node1.left=node2;
-		node2.right=node3;
 		TreeNode node22 = new TreeNode(2);
-		TreeNode node23 = new TreeNode(3);
-		node1.right=node22;
-		node22.right=node23;
-		
+		TreeNode node3 = new TreeNode(3);
+		TreeNode node4 = new TreeNode(4);
+		TreeNode node43 = new TreeNode(4);
+		TreeNode node44 = new TreeNode(4);
+		node1.left = node2;
+		node1.right = node22;
+		node2.left = node3;
+		node2.right = node4;
+		node22.left = node43;
+		node22.right = node44;
 		System.out.println(a.isSymmetric(node1));
 	}
-	
-	public boolean isSymmetric_re(TreeNode root) {
-	    Queue<TreeNode> q = new LinkedList<>();
-	    q.add(root);
-	    q.add(root);
-	    while (!q.isEmpty()) {
-	        TreeNode t1 = q.poll();
-	        TreeNode t2 = q.poll();
-	        if (t1 == null && t2 == null) continue;
-	        if (t1 == null || t2 == null) return false;
-	        if (t1.val != t2.val) return false;
-	        q.add(t1.left);
-	        q.add(t2.right);
-	        q.add(t1.right);
-	        q.add(t2.left);
-	    }
-	    return true;
+
+	private boolean isSymmetric(TreeNode root) {
+		if (root != null) {
+			return helper(root.left, root.right);
+		}
+		return true;
 	}
 
-	
+	private boolean helper(TreeNode left, TreeNode right) {
+		if (left == null && right == null) {
+			return true;
+		}
+		if (left == null || right == null) {
+			return false;
+		}
+		if (left.val == right.val) {
+			return helper(left.left, right.right) && helper(left.right, right.left);
+		}
+		return false;
+	}
+
+	public boolean isSymmetric_re(TreeNode root) {
+		Queue<TreeNode> q = new LinkedList<>();
+		q.add(root);
+		q.add(root);
+		while (!q.isEmpty()) {
+			TreeNode t1 = q.poll();
+			TreeNode t2 = q.poll();
+			if (t1 == null && t2 == null)
+				continue;
+			if (t1 == null || t2 == null)
+				return false;
+			if (t1.val != t2.val)
+				return false;
+			q.add(t1.left);
+			q.add(t2.right);
+			q.add(t1.right);
+			q.add(t2.left);
+		}
+		return true;
+	}
+
 }

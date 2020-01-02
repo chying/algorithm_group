@@ -2,6 +2,7 @@ package algorithm.exercise.tree;
 
 /**
  * 【108. 将有序数组转换为二叉搜索树】
+ * https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/
  * 
  * @author chying
  *
@@ -26,33 +27,29 @@ public class ConvertSortedArrayToBinarySearchTree {
 	 * @return
 	 */
 	public TreeNode sortedArrayToBST(int[] nums) {
-//		if (null != nums && nums.length > 0) {
-//			int len = nums.length;
-//			TreeNode node = new TreeNode(nums[len / 2]);
-//			node.left = buildTree(nums, 0, len / 2);
-//			node.right = buildTree(nums, len / 2, len);
-//			return node;
-//		}
+		if (null != nums && nums.length > 0) {
+			return buildTree(nums, 0, nums.length - 1);
+		}
 		return null;
 	}
 
-	private TreeNode buildTree(int[] nums, int start, int mid, int end) {
+	private TreeNode buildTree(int[] nums, int start, int end) {
 		if (start > end) {
 			return null;
 		}
-		TreeNode node = new TreeNode(nums[(end - start) / 2]);
-		start = 0;
-//		int mid = (end - start) / 2;
-//		node.left = buildTree(nums, start, mid);
-//		node.right = buildTree(nums, len / 2, len);
+		int mid = start + (end - start) / 2;
+		TreeNode node = new TreeNode(nums[mid]);
+		node.left = buildTree(nums, start, mid - 1);
+		node.right = buildTree(nums, mid + 1, end);
 		return node;
-
 	}
 
 	public static void main(String[] args) {
 		ConvertSortedArrayToBinarySearchTree a = new ConvertSortedArrayToBinarySearchTree();
 		int[] nums = new int[] { -10, -3, 0, 5, 9 };
-		a.sortedArrayToBST(nums);
+		TreeNode node = a.sortedArrayToBST(nums);
+
+		System.out.println(node);
 	}
 
 }
