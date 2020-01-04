@@ -1,4 +1,4 @@
-package algorithm.exercise.list;
+package algorithm.exercise.linklist;
 
 import java.util.HashSet;
 import java.util.Set;
