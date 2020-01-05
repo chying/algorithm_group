@@ -9,6 +9,15 @@ public class ListNode {
 		next = null;
 	}
 
+	static ListNode getListNode() {
+		ListNode p = new ListNode(1);
+		p.next = new ListNode(2);
+		p.next.next = new ListNode(3);
+		p.next.next.next = new ListNode(4);
+		p.next.next.next.next = new ListNode(5);
+		return p;
+	}
+
 	static ListNode getListNode1() {
 		ListNode p = new ListNode(2);
 		p.next = new ListNode(4);
@@ -22,4 +31,20 @@ public class ListNode {
 		p.next.next = new ListNode(4);
 		return p;
 	}
+
+	@Override
+	public String toString() {
+		return "ListNode [val=" + val + ", next=" + next + "]";
+	}
+
+	static String printStr(ListNode head) {
+		StringBuilder sb = new StringBuilder();
+
+		while (head != null) {
+			sb.append(head.val + ",");
+			head = head.next;
+		}
+		return sb.toString();
+	}
+
 }
