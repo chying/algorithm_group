@@ -8,30 +8,33 @@ package algorithm.exercise.string;
  */
 public class ImplementStrstr {
 	public int strStr(String haystack, String needle) {
-		if (null != haystack && needle != null && haystack.length() > 0 && needle.length() > 0) {
+		if (null != haystack && needle != null) {
 			int len1 = haystack.length();
 			int len2 = needle.length();
-			int j = 0;
-			for (int i = 0; i < len1; i++) {
-				if (haystack.charAt(i) == needle.charAt(j)) {
-					j++;
-					if (j == len2)
-						return i;
-				} else {
-					j = 0;
+			for (int i = 0; i <= len1 - len2; i++) {
+				int j = 0;
+				for (; j < len2; j++) {
+					if (haystack.charAt(i+j) != needle.charAt(j)) {
+						break;
+					}
+				}
+				if (j == len2) {
+					return i;
 				}
 			}
-		}
-		if (haystack == "" || needle == "") {
-			return 0;
+			if (len2 == 0) {
+				return 0;
+			}
 		}
 		return -1;
 	}
 
 	public static void main(String[] args) {
 		ImplementStrstr a = new ImplementStrstr();
-		String haystack = "hello";
-		String needle = "ll";
+		String haystack = "mississippi";
+		String needle = "issip";
+//		"mississippi"
+//		"issip"
 		System.out.println(a.strStr(haystack, needle));
 
 	}
