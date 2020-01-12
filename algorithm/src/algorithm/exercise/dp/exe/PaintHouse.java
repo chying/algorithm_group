@@ -15,6 +15,18 @@ public class PaintHouse {
 	}
 
 	public int minCost(int[][] costs) {
-		return -1;
+		if (null != costs && costs.length > 0) {
+			int m = costs.length;
+			int[][] dp = new int[m][3];
+			for (int i = 0; i < 3; i++)
+				dp[0][i] = costs[0][i];
+			for (int i = 1; i < m; i++) {
+				for (int j = 0; j < 3; j++) {
+					dp[i][j] = Math.min(dp[i - 1][(j + 1) % 3], dp[i - 1][(j + 2) % 3]) + costs[i][j];
+				}
+			}
+			return Math.min(Math.min(dp[m - 1][0], dp[m - 1][1]), dp[m - 1][2]);
+		}
+		return 0;
 	}
 }

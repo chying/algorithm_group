@@ -31,12 +31,11 @@ public class FriendCircles {
 
 	class UnionFind {
 		private int count = 0;
-		private int[] parent, rank;
+		private int[] parent;
 
 		UnionFind(int m) {
 			count = m;
 			parent = new int[m];
-			rank = new int[m];
 			for (int i = 0; i < m; i++) {
 				parent[i] = i;
 			}
@@ -48,7 +47,6 @@ public class FriendCircles {
 			if (rootP == rootQ) {
 				return;
 			}
-
 			parent[rootP] = rootQ;
 			count--;
 		}
