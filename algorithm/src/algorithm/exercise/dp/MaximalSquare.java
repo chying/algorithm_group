@@ -31,8 +31,10 @@ public class MaximalSquare {
 		MaximalSquare a = new MaximalSquare();
 //		char[][] matrix = new char[][] { { '1', '0', '1', '0', '0' }, { '1', '0', '1', '1', '1' },
 //				{ '1', '1', '1', '1', '1' }, { '1', '0', '0', '1', '0' } };
-		char[][] matrix = new char[][] { { '1' } };
-		System.out.println(a.maximalSquare_1(matrix));
+		char[][] matrix = new char[][] { { '1', '1', '1', '0', '0' }, { '1', '1', '1', '0', '0' },
+				{ '1', '1', '1', '1', '1' }, { '0', '1', '1', '1', '1' }, { '0', '1', '1', '1', '1' },
+				{ '0', '1', '1', '1', '1' } };
+		System.out.println(a.maximalSquaree_2(matrix));
 	}
 
 	public int maximalSquare_1(char[][] matrix) {
@@ -58,4 +60,71 @@ public class MaximalSquare {
 		}
 		return 0;
 	}
+
+	public int maximalSquaree(char[][] matrix) {
+		int rows = matrix.length, cols = rows > 0 ? matrix[0].length : 0;
+		int maxsqlen = 0;
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				if (matrix[i][j] == '1') {
+					int sqlen = 1;
+					boolean flag = true;
+					while (sqlen + i < rows && sqlen + j < cols && flag) {
+						for (int k = j; k <= sqlen + j; k++) {
+							if (matrix[i + sqlen][k] == '0') {
+								flag = false;
+								break;
+							}
+						}
+						for (int k = i; k <= sqlen + i; k++) {
+							if (matrix[k][j + sqlen] == '0') {
+								flag = false;
+								break;
+							}
+						}
+						if (flag)
+							sqlen++;
+					}
+					if (maxsqlen < sqlen) {
+						maxsqlen = sqlen;
+					}
+				}
+			}
+		}
+		return maxsqlen * maxsqlen;
+	}
+
+	public int maximalSquaree_2(char[][] matrix) {
+		int m = matrix.length;
+		int n = matrix[0].length;
+		int max = 0;
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (matrix[i][j] == '1') {
+					int len = 1;
+					boolean flag = false;
+					while (i + len < m && j + len < n && !flag) {
+						for (int k = 0; k <= len; k++) {
+							if (matrix[i + len][j + k] == '0') {
+								flag = !flag;
+								break;
+							}
+						}
+						for (int k = 0; k <= len; k++) {
+							if (matrix[i + k][j + len] == '0') {
+								flag = !flag;
+								break;
+							}
+						}
+						if (!flag) {
+							max = Math.max(max, len);
+							len++;
+						}
+					}
+				}
+			}
+		}
+		return max * max;
+	}
+
 }
