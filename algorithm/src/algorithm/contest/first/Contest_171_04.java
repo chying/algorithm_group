@@ -1,4 +1,4 @@
-package algorithm.contest;
+package algorithm.contest.first;
 
 /**
  * ¡¾¡¿

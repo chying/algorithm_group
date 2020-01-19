@@ -1,4 +1,4 @@
-package algorithm.contest;
+package algorithm.contest.first;
 
 /**
  * 【5308. 或运算的最小翻转次数】 给你三个正整数 a、b 和 c。

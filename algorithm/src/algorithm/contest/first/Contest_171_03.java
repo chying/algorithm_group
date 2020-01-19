@@ -1,4 +1,4 @@
-package algorithm.contest;
+package algorithm.contest.first;
 
 /**
  * 【5309. 连通网络的操作次数】
