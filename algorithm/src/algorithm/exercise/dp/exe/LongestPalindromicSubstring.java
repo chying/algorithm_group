@@ -9,29 +9,55 @@ package algorithm.exercise.dp.exe;
 public class LongestPalindromicSubstring {
 
 	public String longestPalindrome(String s) {
-		int start = 0, end = 0;
-		for (int i = 0; i < s.length(); i++) {
-			int len1 = expand(s, i, i);
-			int len2 = expand(s, i, i + 1);
-			int len = Math.max(len1, len2);
-
+		if (null != s) {
+			int maxLen = 0;
+			String res = "";
+			boolean[][] dp = new boolean[s.length()][s.length()];
+			for (int len = 1; len <= s.length(); len++) {
+				for (int start = 0; start <= s.length() - len; start++) {
+					int end = start + len - 1;
+					if ((len == 1 || len == 2 || dp[start + 1][end - 1]) && s.charAt(start) == s.charAt(end)) {
+						dp[start][end] = true;
+						if (len > maxLen) {
+							maxLen = len;
+							res = s.substring(start, end + 1);
+						}
+					}
+				}
+			}
+			return res;
 		}
 		return "";
-	}
-
-	private int expand(String s, int left, int right) {
-		if (left < 0 || left > right || right > s.length()) {
-			return 0;
-		}
-		if(s.charAt(left)==s.charAt(right)) {
-			
-		}
-		return 0;
 	}
 
 	public static void main(String[] args) {
 		LongestPalindromicSubstring a = new LongestPalindromicSubstring();
 		String s = "babad";
-		System.out.println(a.longestPalindrome(s));
+		System.out.println(a.longestPalindrome1(s));
+	}
+
+	public String longestPalindrome1(String s) {
+		if (null != s) {
+			int maxLen = 0;
+			String res = "";
+			boolean[] dp = new boolean[s.length()];
+			for (int start = 0; start < s.length(); start++) {
+				for (int len = 1; len <= s.length(); len++) {
+					int end = start + len - 1;
+					if (end >= s.length()) {
+						break;
+					}
+					if ((len == 1 || len == 2 || dp[end - 1]) && s.charAt(start) == s.charAt(end)) {
+						dp[end] = true;
+						if (len > maxLen) {
+							maxLen = len;
+							res = s.substring(start, end + 1);
+						}
+					}
+				}
+			}
+			return res;
+		}
+		return "";
 	}
 }
