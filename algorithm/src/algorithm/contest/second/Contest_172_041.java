@@ -16,8 +16,8 @@ public class Contest_172_041 {
 
 	public static void main(String[] args) {
 		Contest_172_041 a = new Contest_172_041();
-		int[] ranges = new int[] { 3, 4, 1, 1, 0, 0 };
-		System.out.println(a.minTaps(5, ranges));
+		int[] ranges = new int[] { 1, 2, 1, 0, 2, 1, 0, 1 };
+		System.out.println(a.minTaps(7, ranges));
 	}
 
 	public int minTaps(int n, int[] ranges) {
@@ -61,6 +61,5 @@ public class Contest_172_041 {
 		}
 		return res;
 	}
-	
-	
+
 }
