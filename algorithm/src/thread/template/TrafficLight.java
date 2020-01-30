@@ -1,7 +1,11 @@
 package thread.template;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 class TrafficLight {
 	private volatile boolean Alight = true;
+	Lock lock = new ReentrantLock();
 
 	public TrafficLight() {
 
@@ -13,11 +17,15 @@ class TrafficLight {
 			Runnable turnGreen, // Use turnGreen.run() to turn light to green on current road
 			Runnable crossCar // Use crossCar.run() to make car cross the intersection
 	) {
-		if (roadId == 1 && Alight) {
+		lock.lock();
+		try {
+			if ((roadId == 1 && !Alight) || (roadId == 2 && Alight)) {
+				Alight = !Alight;
+				turnGreen.run();
+			}
 			crossCar.run();
-		}else {
-			
+		} finally {
+			lock.unlock();
 		}
-
 	}
 }

@@ -1,76 +1,34 @@
 package thread.traficlight;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.LockSupport;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 class TrafficLight3 {
-    private AtomicBoolean occupied = new AtomicBoolean(false);
+	// 其实只要控制红灯这个竞态条件
+	// 刚开始，lock和lightStatus变量我都设置成static，结果报错，按题意，对象级别的锁就可以了
+	private final Lock lock = new ReentrantLock();
+	private boolean lightStatus = true; // 一开始就是A路绿灯
 
-    private volatile boolean roadAAllowed = true;
-    private AtomicInteger roadACardCount = new AtomicInteger(0);
+	public TrafficLight3() {
 
-    private volatile boolean roadBAllowed = false;
-    private AtomicInteger roadBCardCount = new AtomicInteger(0);
-    
-    public TrafficLight3() {   
-    }
-    
-    public void carArrived(
-        int carId,           // ID of the car
-        int roadId,          // ID of the road the car travels on. Can be 1 (road A) or 2 (road B)
-        int direction,       // Direction of the car
-        Runnable turnGreen,  // Use turnGreen.run() to turn light to green on current road
-        Runnable crossCar    // Use crossCar.run() to make car cross the intersection 
-    ) {
-        if (roadId == 1 && tryOccupyRoadA(turnGreen)) {
-            this.roadACardCount.incrementAndGet();
-            crossCar.run();
-            releaseRoadAIfNecessary();
-        } else if (roadId == 2 && tryOccupyRoadB(turnGreen)) {
-            this.roadBCardCount.incrementAndGet();
-            crossCar.run();
-            releaseRoadBIfNecessary();
-        }
-    }
+	}
 
-    private boolean tryOccupyRoadA(Runnable turnGreen) {
-        while (!this.roadAAllowed) {
-            if (this.occupied.compareAndSet(false, true)) {
-                turnGreen.run();
-                this.roadAAllowed = true;
-                this.roadBAllowed = false;
-            } else {
-                LockSupport.parkNanos(1L);
-            }
-        }
-
-        return true;
-    }
-
-    private boolean tryOccupyRoadB(Runnable turnGreen) {
-        while (!this.roadBAllowed) {
-            if (this.occupied.compareAndSet(false, true)) {
-                turnGreen.run();
-                this.roadAAllowed = false;
-                this.roadBAllowed = true;
-            } else {
-                LockSupport.parkNanos(1L);
-            }
-        }
-
-        return true;
-    }
-
-    private void releaseRoadAIfNecessary() {
-        if (this.roadACardCount.decrementAndGet() == 0) {
-            this.occupied.set(false);
-        }
-    } 
-
-    private void releaseRoadBIfNecessary() {
-       if (this.roadBCardCount.decrementAndGet() == 0) {
-            this.occupied.set(false);
-        } 
-    }
+	public void carArrived(int carId, // ID of the car
+			int roadId, // ID of the road the car travels on. Can be 1 (road A) or 2 (road B)
+			int direction, // Direction of the car
+			Runnable turnGreen, // Use turnGreen.run() to turn light to green on current road
+			Runnable crossCar // Use crossCar.run() to make car cross the intersection
+	) {
+		System.out.printf("carId=%d, roadId=%d, direction=%d \n", carId, roadId, direction);
+		lock.lock();
+		try {
+			if ((roadId == 1 && lightStatus == false) || (roadId == 2 && lightStatus == true)) {
+				lightStatus = !lightStatus;
+				turnGreen.run();
+			}
+			crossCar.run();
+		} finally {
+			lock.unlock();
+		}
+	}
 }
