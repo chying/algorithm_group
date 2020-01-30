@@ -1,6 +1,7 @@
 package thread.template;
 
 class TrafficLight {
+	private volatile boolean Alight = true;
 
 	public TrafficLight() {
 
@@ -12,6 +13,11 @@ class TrafficLight {
 			Runnable turnGreen, // Use turnGreen.run() to turn light to green on current road
 			Runnable crossCar // Use crossCar.run() to make car cross the intersection
 	) {
+		if (roadId == 1 && Alight) {
+			crossCar.run();
+		}else {
+			
+		}
 
 	}
 }
