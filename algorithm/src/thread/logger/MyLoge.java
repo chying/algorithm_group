@@ -21,7 +21,6 @@ public class MyLoge {
 	ExecutorService pool = Executors.newFixedThreadPool(4);
 	Map<Integer, String> map = new ConcurrentHashMap<>();
 	BlockingQueue<String> queue = new LinkedBlockingDeque<String>();
-//	Deque<String> queue = new ArrayDeque<>();
 	volatile boolean closed = false;
 	Lock lock = new ReentrantLock();
 	Condition add = lock.newCondition();
@@ -43,7 +42,6 @@ public class MyLoge {
 					} finally {
 						lock.unlock();
 					}
-
 				}
 				closed = true;
 				br.close();
@@ -83,7 +81,7 @@ public class MyLoge {
 				lock.lock();
 				try {
 					while (dealNum.get() < readNum.get()) {
-						 System.out.println("queue.size" + queue.size());
+						System.out.println("queue.size" + queue.size());
 						String s = queue.poll();
 						if (s == null) {
 							System.out.println("queue.size" + queue.size());
@@ -94,7 +92,7 @@ public class MyLoge {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-						 System.out.println("dealNum" + dealNum.get() + s);
+						System.out.println("dealNum" + dealNum.get() + s);
 						map.put(dealNum.getAndIncrement(), s);
 					}
 				} finally {
